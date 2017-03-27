@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "json"
   spec.add_runtime_dependency "faraday"
+  spec.add_runtime_dependency "mimemagic"
 end
