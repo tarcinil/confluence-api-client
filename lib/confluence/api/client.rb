@@ -1,6 +1,7 @@
 require "confluence/api/client/version"
 require 'json'
 require 'faraday'
+require 'mimemagic'
 
 module Confluence
   module Api
@@ -36,18 +37,28 @@ module Confluence
         JSON.parse(response.body)
       end
 
-      def upload_png(id,file_path)
-        puts file_path
+      def upload_file(page_id,file_path)
         response = multiconn.post do |req|
-          req.url '/wiki/rest/api/content/'+id+'/child/attachment'
+          req.url '/wiki/rest/api/content/'+page_id+'/child/attachment'
           req.headers['X-Atlassian-Token']= 'nocheck'
-          req.body= {file: Faraday::UploadIO.new(File.open(file_path), 'image/png') }
+          req.body= {file: Faraday::UploadIO.new(File.open(file_path), MimeMagic.by_magic(File.open(file_path))) }
         end
         JSON.parse(response.body)
       end
 
+      def get_attachments_by_name(page_id,attachment_name)
+        response = conn.get('/wiki/rest/api/content/' + page_id + '/child/attachment?filename='+attachment_name)
+        JSON.parse(response.body)
+      end
 
-      #def update_png
+      def update_file(page_id,attachment_id,file_path)
+        response = multiconn.post do |req|
+          req.url '/wiki/rest/api/content/'+page_id+'/child/attachment/' + attachment_id + '/data'
+          req.headers['X-Atlassian-Token']= 'nocheck'
+          req.body= {file: Faraday::UploadIO.new(File.open(file_path), MimeMagic.by_magic(File.open(file_path))) }
+        end
+        JSON.parse(response.body)
+      end
 
       def create(params)
         response = conn.post do |req|
