@@ -58,3 +58,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## TODO
 
 1. Cover with tests
+2. Add rest of the functionality from confluence api
+3. Change faraday to unirest?
