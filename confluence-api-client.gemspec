@@ -6,12 +6,9 @@ require 'confluence/api/client/version'
 Gem::Specification.new do |spec|
   spec.name          = "confluence-api-client"
   spec.version       = Confluence::Api::Client::VERSION
-  spec.authors       = ["Alex Mishyn"]
-  spec.email         = ["mishyn@gmail.com"]
+  spec.authors       = ["Serdar Gokay Kucuk"]
+  spec.email         = ["serdargokaykucuk@gmail.com"]
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
-  end
 
   spec.summary       = %q{GET/POST rest client to confluence api}
   spec.description   = %q{GET/POST rest client to confluence api}
